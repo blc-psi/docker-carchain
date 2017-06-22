@@ -1,0 +1,6 @@
+[submodule "carchain"]
+	path = src
+	url = git@github.com:blc-psi/carchain.git
+[submodule "src"]
+	path = src
+	url = git@github.com:blc-psi/carchain
