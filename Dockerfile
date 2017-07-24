@@ -5,6 +5,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -; \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list; \
     sudo apt-get update && sudo apt-get --yes install \
       libpq-dev \
+      ruby-gettext \
       yarn; \
       sudo rm -rf /var/lib/apt/lists/*; \
       sudo rm -rf /var/cache/apt/*;
@@ -18,10 +19,11 @@ ADD ["/src/Gemfile", "/src/Gemfile.lock", "/carchain/"]
 
 RUN sudo chown -R ubuntu: /carchain
 
-RUN bundle install --path ./.bundle --binstubs .bundle/bin
+RUN bundle install --path ./.bundle --binstubs .bundle/bin && sudo chown -R ubuntu: /carchain/.bundle
 
 ADD /src /carchain
 
-RUN sudo chown -R ubuntu: /carchain
+# we chowned bundle above and only chown the src here to avoid unnecessary image bloating
+RUN find /carchain -name .bundle -prune -o -print | xargs sudo chown ubuntu:
 
 CMD ["start_carchain"]
