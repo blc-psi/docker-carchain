@@ -2,11 +2,13 @@
 
 set -e
 
-# hook in git pre-commit
-if [ ! -L .git/hooks/pre-commit ]; then
-  echo "Install Git hook ..."
-  mkdir -p .git/hooks
-  ln -sf ../../misc/admin/git/pre-commit .git/hooks/pre-commit
+if [ -d ".git/" ]; then
+  # hook in git pre-commit
+  if [ ! -L .git/hooks/pre-commit ]; then
+    echo "Install Git hook ..."
+    mkdir -p .git/hooks
+    ln -sf ../../misc/admin/git/pre-commit .git/hooks/pre-commit
+  fi
 fi
 
 # Start server
