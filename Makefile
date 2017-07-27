@@ -1,6 +1,6 @@
 REPO ?= dfherr/carchain
 TAG  ?= $(GITTAG)
-GITTAG ?= v0.1.1.p2
+GITTAG ?= v0.1.1.p3
 
 all: build commit push
 
